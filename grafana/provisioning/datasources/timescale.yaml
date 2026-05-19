@@ -9,7 +9,7 @@ datasources:
     database: jumeaux
     user: jumeaux
     secureJsonData:
-      password: ${POSTGRES_PASSWORD:-jumeaux}
+      password: ${POSTGRES_PASSWORD}
     jsonData:
       sslmode: disable
       postgresVersion: 1600

@@ -36,6 +36,13 @@ from dashboard.api_client import ApiClient
 from dashboard.ws_client import ClusterWSClient
 
 # ---------------------------------------------------------------------------
+# Variables d'environnement (ex. pour configurer l'URL de l'API ou du WS)
+# ---------------------------------------------------------------------------
+API_BASE_URL = os.getenv("API_BASE_URL","http://localhost:8000")
+WS_URL = os.getenv("WS_URL","ws://localhost:8000/ws/cluster")
+
+
+# ---------------------------------------------------------------------------
 # Configuration page
 # ---------------------------------------------------------------------------
 st.set_page_config(
@@ -51,12 +58,12 @@ st.set_page_config(
 
 @st.cache_resource
 def get_ws_client() -> ClusterWSClient:
-    return ClusterWSClient(url="ws://localhost:8000/ws/cluster")
+    return ClusterWSClient(url=WS_URL)
 
 
 @st.cache_resource
 def get_api_client() -> ApiClient:
-    return ApiClient(base_url="http://localhost:8000")
+    return ApiClient(base_url=API_BASE_URL)
 
 
 # Buffer circulaire par machine pour les courbes de température

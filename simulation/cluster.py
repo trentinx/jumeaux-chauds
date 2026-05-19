@@ -258,6 +258,13 @@ class ClusterSimulator:
             for machine in self.machines.values():
                 snap = machine.snapshot()
                 snap["cluster_id"] = self.cluster_id
+                snap["machine_id"] = machine.id
+                snap["temperatures"] = {
+                    s["sensor_id"]: {"value_c": s["temp_c"]}
+                    for s in snap.get("sensors", [])
+                }
+                snap["power_w"] = snap.get("power_w", 0.0)
+
 
                 await publisher.publish_telemetry(snap)
 

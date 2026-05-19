@@ -48,9 +48,9 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     if mqtt_enabled:
         try:
             from mqtt.publisher import MqttPublisher
-            host = os.environ.get("MQTT_HOST", "localhost")
-            port = int(os.environ.get("MQTT_PORT", "1883"))
-            publisher = MqttPublisher(host=host, port=port)
+            host = os.environ.get("MQTT_BROKER_HOST", "localhost")
+            port = int(os.environ.get("MQTT_BROKER_PORT", "1883"))
+            publisher = MqttPublisher(dict(broker_host=host, broker_port=port))
             await publisher.__aenter__()
             logger.info("MqttPublisher connecté sur %s:%s", host, port)
         except Exception as exc:  # noqa: BLE001
